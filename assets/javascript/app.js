@@ -7,8 +7,11 @@ var config = {
     storageBucket: "timesheet-3598e.appspot.com",
     messagingSenderId: "155916013814"
 };
+
 firebase.initializeApp(config);
+
 var database = firebase.database();
+
 // Capture Button Click
 $("#click-button").on("click", function (event) {
     event.preventDefault();
@@ -26,23 +29,46 @@ $("#click-button").on("click", function (event) {
         startDate: startDate,
         monthlyRate: monthlyRate
     });
+
+    //Clear Input Fields
+    $("#employee").val("");
+    $("#role").val("");
+    $("#date").val("");
+    $("#rate").val("");
+    
 });
 
 // Firebase watcher + initial loader HINT: .on("value")
 database.ref().on("child_added", function (snapshot) {
 
     // Log everything that's coming out of snapshot
+    /*
     console.log(snapshot.val());
     console.log(snapshot.val().employee);
     console.log(snapshot.val().role);
     console.log(snapshot.val().startDate);
     console.log(snapshot.val().monthlyRate);
+    */
 
-    // Change the HTML to reflect
-    $("#employee").text(snapshot.val().employee);
-    $("#role").text(snapshot.val().role);
-    $("#date").text(snapshot.val().startDate);
-    $("#rate").text(snapshot.val().monthlyRate);
+    //Data for New Child in Database
+    var addedEmployee = snapshot.val().employee;
+    var addedRole = snapshot.val().role;
+    var addedDate = snapshot.val().startDate;
+    var addedRate = snapshot.val().monthlyRate;
+
+    //New Row in the Output Table
+    var newRow=$("<tr>");
+
+    //Table Data in Each Row
+    $(newRow).append("<td>"+addedEmployee+"</td>");
+    $(newRow).append("<td>"+addedRole+"</td>");
+    $(newRow).append("<td>"+addedDate+"</td>");
+    $(newRow).append("<td>Calculate</td>")
+    $(newRow).append("<td>"+addedRate+"</td>");
+    $(newRow).append("<td>Calculate</td>")
+
+    //Append New Row to Table Body
+    $("#timeTableRows").append(newRow);
 
     // Handle the errors
 }, function (errorObject) {

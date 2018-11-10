@@ -29,7 +29,7 @@
                     </div>
                     <div class="panel-body">
                         <table class="table" id="trainTable">
-                            <thead>
+                            <thead >
                                 <tr>
                                     <th>Employee Name</th>
                                     <th>Role</th>
@@ -40,6 +40,7 @@
                                 </tr>
                             </thead>
                             <tbody id="timeTableRows">
+                                
                             </tbody>
                         </table>
                     </div>
@@ -58,19 +59,19 @@
                         <form>
                             <div class="form-group">
                                 <label for="employee">Employee Name</label>
-                                <input type="text" class="form-control" id="employee">
+                                <input type="text" class="form-control" id="employee" required>
                             </div>
                             <div class="form-group">
                                 <label for="role">Role</label>
-                                <input type="text" class="form-control" id="role">
+                                <input type="text" class="form-control" id="role" required>
                             </div>
                             <div class="form-group">
                                 <label for="date">Start Date (MM/DD/YYYY)</label>
-                                <input type="text" class="form-control" id="date">
+                                <input type="date" class="form-control" id="date" required>
                             </div>
                             <div class="form-group">
                                 <label for="rate">Monthly Rate</label>
-                                <input type="text" class="form-control" id="rate">
+                                <input type="number" class="form-control" id="rate" required>
                             </div>
 
                             <button id="click-button" type="submit">Submit</button>
