@@ -12,6 +12,24 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+// Function for getting the months worked
+function getMonths(startDate) {
+    // Get the current date
+    var now = moment();
+    var start = moment(startDate, "MM-DD-YYYY");
+
+    // Gets the number of years between the two dates
+    let years = now.year() - start.year();
+    let months = (now.month() - start.month()) + (years * 12);
+
+    // If the start day is earlier than the current day, then subtract a month
+    if(now.date() < start.date()) {
+        return months - 1;
+    } else {
+        return months;
+    }
+}
+
 // Capture Button Click
 $("#click-button").on("click", function (event) {
     event.preventDefault();
