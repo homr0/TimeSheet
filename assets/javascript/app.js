@@ -16,7 +16,7 @@ var database = firebase.database();
 function getMonths(startDate) {
     // Get the current date
     var now = moment();
-    var start = moment(startDate, "MM-DD-YYYY");
+    var start = moment(startDate, "YYYY-MM-DD");
 
     // Gets the number of years between the two dates
     let years = now.year() - start.year();
@@ -73,6 +73,8 @@ database.ref().on("child_added", function (snapshot) {
     var addedRole = snapshot.val().role;
     var addedDate = snapshot.val().startDate;
     var addedRate = snapshot.val().monthlyRate;
+    var months = getMonths(addedDate);
+    var pay= months*addedRate;
 
     //New Row in the Output Table
     var newRow=$("<tr>");
@@ -81,9 +83,9 @@ database.ref().on("child_added", function (snapshot) {
     $(newRow).append("<td>"+addedEmployee+"</td>");
     $(newRow).append("<td>"+addedRole+"</td>");
     $(newRow).append("<td>"+addedDate+"</td>");
-    $(newRow).append("<td>Calculate</td>")
+    $(newRow).append("<td>"+months+"</td>");
     $(newRow).append("<td>"+addedRate+"</td>");
-    $(newRow).append("<td>Calculate</td>")
+    $(newRow).append("<td>"+pay+"</td>");
 
     //Append New Row to Table Body
     $("#timeTableRows").append(newRow);
