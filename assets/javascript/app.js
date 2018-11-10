@@ -69,17 +69,17 @@ database.ref().on("child_added", function (snapshot) {
     */
 
     //Data for New Child in Database
-    var addedEmployee = snapshot.val().employee;
-    var addedRole = snapshot.val().role;
-    var addedDate = snapshot.val().startDate;
-    var addedRate = snapshot.val().monthlyRate;
-    var months = getMonths(addedDate);
-    var pay= months*addedRate;
+    var addedEmployee = snapshot.val().employee;        //Newly Added Employee's Name
+    var addedRole = snapshot.val().role;        //Newly Added Employee's Role
+    var addedDate = snapshot.val().startDate;   //Newly Added Employee's Start Date
+    var addedRate = snapshot.val().monthlyRate; //Newly Added Employee's Monthly Rate
+    var months = getMonths(addedDate);      //Use Get Months Function to get how Many Months Since New Employee Start Date
+    var pay= months*addedRate;              //Times Months Worked by Rate to get Total Billed
 
     //New Row in the Output Table
     var newRow=$("<tr>");
 
-    //Table Data in Each Row
+    //Append Each Piece of Data to Row in Same Order as the Table Headers in HTML File
     $(newRow).append("<td>"+addedEmployee+"</td>");
     $(newRow).append("<td>"+addedRole+"</td>");
     $(newRow).append("<td>"+addedDate+"</td>");
