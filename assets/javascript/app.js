@@ -12,24 +12,6 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-// Function for getting the months worked
-function getMonths(startDate) {
-    // Get the current date
-    var now = moment();
-    var start = moment(startDate, "YYYY-MM-DD");
-
-    // Gets the number of years between the two dates
-    let years = now.year() - start.year();
-    let months = (now.month() - start.month()) + (years * 12);
-
-    // If the start day is earlier than the current day, then subtract a month
-    if(now.date() < start.date()) {
-        return months - 1;
-    } else {
-        return months;
-    }
-}
-
 // Capture Button Click
 $("#click-button").on("click", function (event) {
     event.preventDefault();
@@ -73,7 +55,7 @@ database.ref().on("child_added", function (snapshot) {
     var addedRole = snapshot.val().role;        //Newly Added Employee's Role
     var addedDate = snapshot.val().startDate;   //Newly Added Employee's Start Date
     var addedRate = snapshot.val().monthlyRate; //Newly Added Employee's Monthly Rate
-    var months = getMonths(addedDate);      //Use Get Months Function to get how Many Months Since New Employee Start Date
+    var months = moment().diff(addedDate, "months");      //Use Get Months Function to get how Many Months Since New Employee Start Date
     var pay= months*addedRate;              //Times Months Worked by Rate to get Total Billed
 
     //New Row in the Output Table
